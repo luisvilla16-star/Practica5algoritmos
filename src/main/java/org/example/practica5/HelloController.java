@@ -24,20 +24,20 @@ import java.util.Comparator;
 public class HelloController {
 
     // Aquí guardamos todas las cartas del archivo CSV.
-    private final ArrayList<Carta> cartas = new ArrayList<>();
+    private ArrayList<Carta> cartas = new ArrayList<>();
 
     // Aquí guardamos las cartas que se van a mostrar.
-    private final ArrayList<Carta> cartasVisibles = new ArrayList<>();
+    private  ArrayList<Carta> cartasVisibles = new ArrayList<>();
 
     // Elementos de la pantalla.
-    private final FlowPane galeria = new FlowPane();
-    private final ComboBox<String> nivel = new ComboBox<>();
-    private final ComboBox<String> atributo = new ComboBox<>();
-    private final CheckBox ataqueMenorAMayor =
+    private  FlowPane galeria = new FlowPane();
+    private  ComboBox<String> nivel = new ComboBox<>();
+    private  ComboBox<String> atributo = new ComboBox<>();
+    private  CheckBox ataqueMenorAMayor =
             new CheckBox("De menor a mayor");
-    private final CheckBox defensaMenorAMayor =
+    private CheckBox defensaMenorAMayor =
             new CheckBox("De menor a mayor");
-    private final Button botonMusica = new Button("🔊");
+    private  Button botonMusica = new Button("🔊");
 
     // Elementos para reproducir la música.
     private Clip musica;
