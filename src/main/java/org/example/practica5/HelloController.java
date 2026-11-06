@@ -13,6 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.geometry.Pos;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -101,10 +102,20 @@ public class HelloController {
         ScrollPane desplazamiento = new ScrollPane(galeria);
         desplazamiento.setFitToWidth(true);
 
+        Label titulo = new Label("CATÁLOGO DE CARTAS Yu-Gi-Oh!");
+        titulo.setStyle(
+                "-fx-font-size: 28px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-text-fill: #D4AF37;"
+        );
+
         BorderPane pantalla = new BorderPane();
         pantalla.setPadding(new Insets(15));
+        pantalla.setTop(titulo);
         pantalla.setLeft(menu);
         pantalla.setCenter(desplazamiento);
+
+        BorderPane.setAlignment(titulo,Pos.CENTER);
 
         mostrarTodas();
 
