@@ -90,18 +90,32 @@ public class HelloController {
 
         botonMusica.setOnAction(e -> pausarOReanudarMusica());
 
+        // Boton anterior
         anterior.setOnAction(e -> {
 
-            if (posicionCarta > 0) {
+            if (cartasVisibles.size() > 0) {
+
                 posicionCarta--;
+
+                if (posicionCarta < 0) {
+                    posicionCarta = cartasVisibles.size() - 1;
+                }
+
                 actualizarGaleria();
             }
         });
 
+        // Boton siguiente
         siguiente.setOnAction(e -> {
 
-            if (posicionCarta < cartasVisibles.size() - 1) {
+            if (cartasVisibles.size() > 0) {
+
                 posicionCarta++;
+
+                if (posicionCarta == cartasVisibles.size()) {
+                    posicionCarta = 0;
+                }
+
                 actualizarGaleria();
             }
         });
@@ -371,6 +385,18 @@ public class HelloController {
             return;
         }
 
+        // Calcular la carta anterior y siguiente
+        int posicionAnterior = posicionCarta - 1;
+        int posicionSiguiente = posicionCarta + 1;
+
+        if (posicionAnterior < 0) {
+            posicionAnterior = cartasVisibles.size() - 1;
+        }
+
+        if (posicionSiguiente == cartasVisibles.size()) {
+            posicionSiguiente = 0;
+        }
+
         // Imagen anterior
         ImageView imagenAnterior = new ImageView();
 
@@ -378,17 +404,14 @@ public class HelloController {
         imagenAnterior.setFitHeight(150);
         imagenAnterior.setPreserveRatio(true);
 
-        if (posicionCarta > 0) {
+        URL archivoAnterior = buscarImagen(
+                cartasVisibles.get(posicionAnterior)
+        );
 
-            URL archivoAnterior = buscarImagen(
-                    cartasVisibles.get(posicionCarta - 1)
+        if (archivoAnterior != null) {
+            imagenAnterior.setImage(
+                    new Image(archivoAnterior.toExternalForm())
             );
-
-            if (archivoAnterior != null) {
-                imagenAnterior.setImage(
-                        new Image(archivoAnterior.toExternalForm())
-                );
-            }
         }
 
         // Imagen siguiente
@@ -398,17 +421,14 @@ public class HelloController {
         imagenSiguiente.setFitHeight(150);
         imagenSiguiente.setPreserveRatio(true);
 
-        if (posicionCarta < cartasVisibles.size() - 1) {
+        URL archivoSiguiente = buscarImagen(
+                cartasVisibles.get(posicionSiguiente)
+        );
 
-            URL archivoSiguiente = buscarImagen(
-                    cartasVisibles.get(posicionCarta + 1)
+        if (archivoSiguiente != null) {
+            imagenSiguiente.setImage(
+                    new Image(archivoSiguiente.toExternalForm())
             );
-
-            if (archivoSiguiente != null) {
-                imagenSiguiente.setImage(
-                        new Image(archivoSiguiente.toExternalForm())
-                );
-            }
         }
 
         // Carta actual
@@ -431,11 +451,8 @@ public class HelloController {
                 (posicionCarta + 1) + " / " + cartasVisibles.size()
         );
 
-        anterior.setDisable(posicionCarta == 0);
-
-        siguiente.setDisable(
-                posicionCarta == cartasVisibles.size() - 1
-        );
+        anterior.setDisable(false);
+        siguiente.setDisable(false);
     }
 
 
